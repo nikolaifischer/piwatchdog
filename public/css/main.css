@@ -1,0 +1,97 @@
+body{
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.010em;
+}
+
+.siteCard {
+  width: 300px;
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  text-align: left;
+}
+
+#logo {
+  height: 50px;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.screenshot{
+  height:210px;
+  width: 290px ;
+  margin-top: 10px;
+  margin-left:auto;
+  margin-right: auto;
+}
+
+.cardContainer{
+  text-align: center;
+}
+
+#headerIcon {
+  margin-left:5px;
+  margin-right:20px;
+  padding-top: 10px;
+}
+
+#menuBar {
+  height:70px;
+}
+
+.newSitePicture{
+  width:90%;
+  height: 200px;
+  border: solid 1px #aeaeae;
+  line-height: 210px;
+  text-align: center;
+  margin:auto;
+  margin-top: 20px;
+}
+
+
+.newAddButtonContainer {
+  text-align: center;
+
+}
+.newAddButton {
+    width: 200px;
+}
+
+.optionsButton {
+  position: relative;
+  left:100px;
+}
+
+.editDialog {
+  margin-left:10px;
+  margin-right:10px;
+  margin-top:35px;
+}
+
+#email-settings{
+  margin-left:auto;
+  margin-right:auto;
+  width: 300px;
+}
+
+#notification-settings{
+  margin-left:auto;
+  margin-right:auto;
+  width: 300px;
+  
+}
+
+.settingsContainer{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+
+.settingsCard{
+  padding-top: 80px;
+  padding-bottom: 20px;
+}
+
+

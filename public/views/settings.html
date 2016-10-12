@@ -1,0 +1,86 @@
+<div ng-controller= "SettingsController" layout="column" class= "settingsContainer" >
+<md-card class = "settingsCard">
+      <div layout="row" >
+        <div id="email-settings" >
+
+          
+          <span style="font-size: 22px;"> Email Settings </span>
+          <md-divider></md-divider>
+          <br/> <br/>
+
+           <md-input-container class="md-block" flex-gt-xs>
+              <label>Send Email?</label>
+              <md-switch ng-model="settings.sendEmail" aria-label=" SSL">
+          </md-switch>
+          </md-input-container>
+          <div id = "email-details" ng-disabled ="!settings.sendEmail">
+           <md-input-container class="md-block" flex-gt-xs>
+                <label>Email Recipient</label>
+                <input ng-model="settings.email">
+              </md-input-container>
+
+           <md-input-container class="md-block" flex-gt-xs>
+                <label>SMTP-Host</label>
+                <input ng-model="settings.smtp_host" ng-disabled="!settings.sendEmail">
+            </md-input-container>
+
+           <md-input-container class="md-block" flex-gt-xs>
+                <label>SMTP-User</label>
+                <input ng-model="settings.smtp_user" ng-disabled="!settings.sendEmail">
+            </md-input-container>
+
+           <md-input-container class="md-block" flex-gt-xs>
+                <label>SMTP-Password</label>
+                <input type="password" ng-model="settings.smtp_pass" ng-disabled="!settings.sendEmail">
+            </md-input-container>
+
+           <md-input-container class="md-block" flex-gt-xs>
+                <label>SMTP-Port</label>
+                <input ng-model="settings.smtp_port" ng-disabled="!settings.sendEmail">
+            </md-input-container>
+
+           <md-input-container class="md-block" flex-gt-xs>
+                <label>Use SSL?</label>
+                  <md-switch ng-model="settings.smtp_ssl" aria-label=" SSL" ng-disabled ="!settings.sendEmail">
+                  </md-switch>
+            </md-input-container>
+          </div>
+        </div>
+
+        <div id="notification-settings"  >
+
+          <span style="font-size: 22px;"> Notification Settings </span>
+            <md-divider></md-divider>
+            <br/> <br/>
+
+          <md-input-container class="md-block" flex-gt-xs>
+              <label>Send Pushbullet Notification?</label>
+              <md-switch ng-model="settings.sendPushbullet" aria-label=" Enable/Disable Pushbullet">
+              </md-switch>
+          </md-input-container>
+
+          <div id ="pushbullet-details" ng-show ="settings.sendPushbullet">
+
+
+           <md-input-container class="md-block" flex-gt-xs>
+                <label>Pushbullet Authorization Token</label>
+                <input ng-model="settings.pushbulletAPI" ng-disabled="!settings.sendPushbullet">
+            </md-input-container>
+          </div>
+        </div>
+
+      </div>
+
+      <div layout="row">
+        <span flex></span>
+        <md-button class="md-raised" href="../">
+         Discard
+        </md-button>
+        <md-button href="../" class="md-raised md-primary" ng-click="save()">
+          Save
+        </md-button>
+      </div>
+    
+  </div>
+</md-card>
+</div>

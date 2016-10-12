@@ -1,0 +1,13 @@
+{
+  "name": "piwatchdog",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "latest",
+    "font-awesome": "latest",
+    "animate.css": "latest",
+    "angular": "latest",
+    "angular-route": "latest",
+    "angular-material": "^1.1.1",
+    "jquery": "^3.1.1"
+  }
+}

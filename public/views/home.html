@@ -1,0 +1,117 @@
+
+
+<div class="cardContainer">
+
+		<md-card class="siteCard" ng-repeat="website in websites">
+			<img ng-src="{{website.imagePath}}"  err-src="./media/ring.gif" class="md-card-image screenshot" alt="Screenshot">
+			<div ng-show="!website.editModus" class = "currentInfo">
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">{{website.name}}</span>
+						<span class="md-subheadline"> <a href="{{website.url}}"> {{website.url}} </a></span>
+				</md-card-title-text>
+				</md-card-title>
+				<md-card-content>
+				<div id = "online" ng-show="website.isOnline">
+					<i class="material-icons" style="color: green; font-size: 30px;">done</i>
+					<br/>
+					<span style = "font-size: 12px;">  ONLINE </span>
+					<br/>
+					<br/>
+					<div style="font-size: 10px; margin-bottom: 20px;"> LAST CHECKED <time class="timeago">{{website.last_checked}}</time></div>
+				</div>
+
+				<div id = "online" ng-show="!website.isOnline">
+					<i class="material-icons" style="color: #F4511E; font-size: 30px;">cancel</i>
+					<br/>
+					<span style = "font-size: 12px;">  OFFLINE </span>
+					<br/>
+					<br/>
+					<div style="font-size: 10px; margin-bottom: 20px;"> LAST CHECKED <time class="timeago">{{website.last_checked}}</time></div>
+				</div>
+					<md-fab-speed-dial md-direction="left" class="md-scale" >
+						<md-fab-trigger class="optionsButton">
+							<md-button aria-label="menu" class="md-fab md-warn">
+								<md-icon class="material-icons">menu</md-icon>
+							</md-button>
+						</md-fab-trigger>
+						<md-fab-actions>
+							<md-button  ng-click="website.editModus = !website.editModus" aria-label="Edit" class="md-fab md-raised md-mini">
+								<md-icon class="material-icons">edit</md-icon>
+							</md-button>
+							<md-button ng-click="showConfirm($event,website.id)" aria-label="Delete" class="md-fab md-raised md-mini">
+								<md-icon class="material-icons">delete</md-icon>
+							</md-button>
+						</md-fab-actions>
+					</md-fab-speed-dial>
+			</div>
+
+				<div class ="editDialog" ng-show="website.editModus"> 
+					<md-input-container md-no-float class="md-block">
+						<label>NAME</label>
+						<input ng-model="website.name" placeholder="My Blog">
+					</md-input-container>
+					<md-input-container>
+						<label>URL</label>
+						<input ng-model="website.url" type="url" placeholder="http://www.test.com">
+					</md-input-container>
+
+				    <md-input-container class="md-icon-float md-icon-right md-block">
+				      <label>Check Interval</label>
+				      <input ng-model="website.interval" type="number" step="1" min="1">
+				      <span> Minutes </span>
+    				</md-input-container>
+
+					<div class=newAddButtonContainer>
+						<md-button class="md-raised md-primary" ng-click='saveEdit(website.id)' >Save</md-button>
+					</div>
+				</div>
+			</md-card-content>
+		
+		</md-card>
+
+
+
+		<md-card class="siteCard">
+			<a href="#" ng-click="showNewSite=!showNewSite">
+				<div class = "newSitePicture">
+					
+					<i class="material-icons">add</i>
+					
+				</div>
+			</a>
+		
+			<md-card-title>
+				<md-card-title-text>
+				</md-card-title-text>
+			</md-card-title>
+			<md-card-content ng-show="showNewSite">
+				<md-input-container md-no-float class="md-block">
+					<label>NAME</label>
+					<input ng-model="newSite.name" placeholder="My Blog">
+				</md-input-container>
+				<md-input-container>
+					<label>URL</label>
+					<input ng-model="newSite.url" type="url" placeholder="http://www.example.com">
+				</md-input-container>
+
+			    <md-input-container class="md-icon-float md-icon-right md-block">
+				      <label>Check Interval</label>
+			      	<input ng-model="newSite.interval" type="number" step="1" placeholder="30">
+				      <span> Minutes </span>
+				</md-input-container>
+
+
+				<div class=newAddButtonContainer>
+					<md-button ng-click = "showNewSite = !showNewSite" class="md-raised md-primary">Discard</md-button>
+
+					<md-button ng-click = "saveNewSite()" class="md-raised md-primary">Save</md-button>
+				</div>
+			</md-card-content>
+			<div ng-show="!showNewSite" class="newAddButtonContainer">
+				<md-button class="newAddButton md-raised md-primary" type="submit" ng-click="showNewSite=!showNewSite" >Add Website</md-button>
+			</div>
+		</md-card>
+
+
+</div>
