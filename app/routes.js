@@ -24,10 +24,6 @@ module.exports = function(app) {
     watchengine.startWatchingAgain();
 
     // server routes ===========================================================
-    // handle things like api calls
-    // authentication routes
-
-    // sample api route
 
     app.get('/api/websites', function(req, res) {
         

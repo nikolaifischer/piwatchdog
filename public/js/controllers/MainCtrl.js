@@ -210,7 +210,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
           $scope.websites[frontEndIndex].imagePath = "./media/screenshots/"+dbWebsite._id+".png"+ '?decache=' + Math.random();  
         }
         else {
-          $scope.websites[frontEndIndex].imagePath = "./media/screenshots/offline.png"
+          $scope.websites[frontEndIndex].imagePath = "./media/offline.png"
         }
 				
 			
