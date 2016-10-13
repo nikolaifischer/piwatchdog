@@ -17,7 +17,6 @@ var settings = require('./models/settings');
 // Helpers
 var mailer = require('./mailer');
 var screenshot = require ('./screenshot');
-var pushbullet = require('./pushbullet');
 var watchengine = require ('./watchengine');
 
 // Connect to MongoDB

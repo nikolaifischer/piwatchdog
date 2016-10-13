@@ -4,6 +4,7 @@ var settings = require ('./models/settings');
 var screenshot = require('./screenshot.js');
 var http = require('http');
 var URL = require('url-parse');
+var pushbullet = require('./pushbullet');
 
 var watching = [];
 
@@ -12,7 +13,6 @@ var alreadyNotified = [];
 
 exports.registerWatcher = function (id, interval) {
 
-    console.log("Register Watcher for "+ id);
 
     // if ID not in "watching" array
         // call repeat function with checkonlineStatus for new id
