@@ -7,6 +7,9 @@ var URL = require('url-parse');
 
 var watching = [];
 
+// This array contains the ids of the websites for which the user was already informed that its offline
+var alreadyNotified = [];
+
 exports.registerWatcher = function (id, interval) {
 
     console.log("Register Watcher for "+ id);

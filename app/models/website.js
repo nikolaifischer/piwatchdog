@@ -1,5 +1,9 @@
 
-// grab the mongoose module
+/**
+*  This model is used to store all necessary data about watched websites.
+*
+**/
+
 var mongoose = require('mongoose');
 
 // define our website model

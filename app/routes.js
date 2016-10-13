@@ -1,45 +1,43 @@
+/**
+* This file defines the API Routes. Helper Methods, which are doing the actual work are called from here.
+*
+*/
 
-var mongoose = require('mongoose');
-var website = require('./models/website');
-var settings = require('./models/settings');
+
+// Dependencies
 var http = require('http');
 var URL = require('url-parse');
 var fs = require('fs');
+var mongoose = require('mongoose');
 
+// Models
+var website = require('./models/website');
+var settings = require('./models/settings');
+
+// Helpers
 var mailer = require('./mailer');
 var screenshot = require ('./screenshot');
 var pushbullet = require('./pushbullet');
 var watchengine = require ('./watchengine');
 
-
+// Connect to MongoDB
 mongoose.connect('mongodb://localhost/piwatchdog');
 
-
-// This array contains the ids of the websites for which the user was already informed that its offline
-var alreadyNotified = [];
+// Restarts the watchers after a server restart
+watchengine.startWatchingAgain();
 
 
 module.exports = function(app) {
 
-    watchengine.startWatchingAgain();
-
-    // server routes ===========================================================
-
     app.get('/api/websites', function(req, res) {
-        
-        // use mongoose to get all websites in the database
         website.find({}).maxTime(1000).exec(function(err, websites) {
             
-
-            // if there is an error retrieving, send the error. 
-            // nothing after res.send(err) will execute
-
             if (err)
             {
                 res.send(err);
                 console.log(err);
             }
-            res.json(websites); // return all websites in JSON format
+            res.json(websites); 
         });
     });
 
@@ -92,8 +90,6 @@ module.exports = function(app) {
         website.name = req.body.name;
         website.interval = req.body.interval;
         website.url = req.body.url;
-        //website.last_checked = req.body.last_checked;
-
         
         website.save(function(err,website){
              watchengine.registerWatcher(website.id, website.interval);
@@ -107,6 +103,7 @@ module.exports = function(app) {
     });
 
 
+    // This is not used yet but could come in handy.
     app.post('/api/check', function(req, res) {
 
 
@@ -119,6 +116,8 @@ module.exports = function(app) {
                     };
 
                     http.get(options, function(res) {
+                      // Website is reachable
+                      // Do something with the result
 
                     }).on('error', function(e) {
                       console.log("Got error: " + e.message);
@@ -146,10 +145,14 @@ module.exports = function(app) {
 
     app.post('/api/settings', function(req, res) {
 
-
         settings.find({}, function(err, response){
 
-          var newSettings = response[0];
+          var newSettings;
+          // Overwrite settings object, if there already is one
+          if (response.length>0)
+             newSettings = response[0];
+          else
+            newSettings = new settings();
           newSettings.pushbulletAPI = req.body.pushbulletAPI;
           newSettings.email = req.body.email;
           newSettings.sendPushbullet = req.body.sendPushbullet;
@@ -172,22 +175,12 @@ module.exports = function(app) {
 
         });
 
-
-
     });
-
-
 
     // route to handle all angular requests
     app.get('*', function(req, res) {
         res.sendfile('./public/views/index.html'); // load our public/index.html file
     });
-
-
-
-
-
-
 
 
 };

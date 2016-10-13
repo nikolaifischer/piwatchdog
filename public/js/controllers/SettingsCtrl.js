@@ -28,15 +28,6 @@ angular.module('SettingsCtrl', []).controller('SettingsController', function($sc
 
 
 
-/*
-	SettingsService.get(function(response){
-
-		console.log (response);
-
-	});
-
-*/
-
   $scope.save = function() {
       	SettingsService.create($scope.settings, function(response){
 
