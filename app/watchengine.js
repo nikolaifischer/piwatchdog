@@ -2,6 +2,7 @@ var Repeat = require('repeat');
 var website = require('./models/website');
 var settings = require ('./models/settings');
 var screenshot = require('./screenshot.js');
+var mailer = require('./mailer.js');
 var http = require('http');
 var URL = require('url-parse');
 var pushbullet = require('./pushbullet');
