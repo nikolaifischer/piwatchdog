@@ -19,45 +19,6 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
    });
 
 
-
-
-
-
-
-
-
-  //  WebsiteService.delete("57f0ce1b441f99e836a8b13e", function(response){
-    //	console.log(response);
-    //});
-
-
-
-
-   // WebsiteService.create({"name":"Test","url":"http:/www.test.de","interval":30},function(sites){
-   //		console.log(sites);
-   //});
-
-/*    $scope.websites = [
-    	{
-    		id: "57f0cfc63320cf4c31bb6493",
-    		name: "Test",
-    		url: "http://www.finällybinary.com",
-    		imagePath:"https://bellgraphicdesigndotorg.files.wordpress.com/2014/11/3browser-mockup.jpg",
-    		editModus: false
-
-    	},
-    	{
-    		id: 1,
-    		name: "Finally Binary",
-    		url: "http://www.finallybinary.com",
-    		imagePath:"https://bellgraphicdesigndotorg.files.wordpress.com/2014/11/3browser-mockup.jpg",
-    		editModus: false
-
-    	}
-  ];*/ 
-
-
-
     $scope.saveEdit = function(id){
 
     	var index = findInArrayById(id);
