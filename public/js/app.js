@@ -1,4 +1,4 @@
-angular.module('sampleApp', ['ngRoute', 'appRoutes','ngMaterial', 'MainCtrl', 'NerdCtrl', 'SettingsCtrl', 'WebsiteServ','SettingsServ'])
+angular.module('sampleApp', ['ngRoute', 'appRoutes','ngMaterial', 'MainCtrl', 'SettingsCtrl', 'WebsiteServ','SettingsServ'])
 .config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue-grey',{

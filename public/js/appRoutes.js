@@ -7,13 +7,7 @@
             templateUrl: 'views/home.html',
             controller: 'MainController'
         })
-
-        // nerds page that will use the NerdController
-        .when('/nerds', {
-            templateUrl: 'views/nerd.html',
-            controller: 'NerdController'
-        })
-
+        // Settings page
         .when('/settings', {
             templateUrl: 'views/settings.html',
             controller: 'SettingsController'
