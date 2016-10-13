@@ -5,6 +5,7 @@ var screenshot = require('./screenshot.js');
 var http = require('http');
 var URL = require('url-parse');
 var pushbullet = require('./pushbullet');
+var fs = require('fs');
 
 var watching = [];
 

@@ -7,7 +7,6 @@
     "method-override": "~2.0.2",
     "mongoose": "~3.8.0",
     "nodemailer": "^2.6.4",
-    "phantomjs": "^2.1.7",
     "pushbullet": "^1.4.3",
     "repeat": "0.0.6",
     "url-parse": "^1.1.3",
