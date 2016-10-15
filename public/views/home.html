@@ -2,7 +2,7 @@
 
 <div class="cardContainer">
 
-		<md-card class="siteCard" ng-repeat="website in websites">
+		<md-card class="siteCard col-md-3 col-md-offset-2" ng-repeat="website in websites">
 			<img ng-src="{{website.imagePath}}"  err-src="./media/ring.gif" class="md-card-image screenshot" alt="Screenshot">
 			<div ng-show="!website.editModus" class = "currentInfo">
 				<md-card-title>
@@ -29,7 +29,7 @@
 					<br/>
 					<div style="font-size: 10px; margin-bottom: 20px;"> LAST CHECKED <time class="timeago">{{website.last_checked}}</time></div>
 				</div>
-					<md-fab-speed-dial md-direction="left" class="md-scale" >
+					<md-fab-speed-dial md-direction="left" class="md-scale speedDial" >
 						<md-fab-trigger class="optionsButton">
 							<md-button aria-label="menu" class="md-fab md-warn">
 								<md-icon class="material-icons">menu</md-icon>
@@ -72,7 +72,7 @@
 
 
 
-		<md-card class="siteCard">
+		<md-card class="siteCard col-md-3 col-md-offset-2" >
 			<a href="#" ng-click="showNewSite=!showNewSite">
 				<div class = "newSitePicture">
 					
@@ -100,7 +100,6 @@
 			      	<input ng-model="newSite.interval" type="number" step="1" placeholder="30">
 				      <span> Minutes </span>
 				</md-input-container>
-
 
 				<div class=newAddButtonContainer>
 					<md-button ng-click = "showNewSite = !showNewSite" class="md-raised md-primary">Discard</md-button>

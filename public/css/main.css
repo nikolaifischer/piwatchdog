@@ -4,11 +4,13 @@ body{
 }
 
 .siteCard {
-  width: 300px;
-  display: inline-block;
+  /*width: 300px;*/
+  /*display: inline-block;*/
   position: relative;
   vertical-align: top;
   text-align: left;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 #logo {
@@ -18,8 +20,8 @@ body{
 }
 
 .screenshot{
-  height:210px;
-  width: 290px ;
+  /*height:210px*/;
+  width: 96% ;
   margin-top: 10px;
   margin-left:auto;
   margin-right: auto;
@@ -27,6 +29,7 @@ body{
 
 .cardContainer{
   text-align: center;
+  float:  right;
 }
 
 #headerIcon {
@@ -58,11 +61,6 @@ body{
     width: 200px;
 }
 
-.optionsButton {
-  position: relative;
-  left:100px;
-}
-
 .editDialog {
   margin-left:10px;
   margin-right:10px;
@@ -92,6 +90,11 @@ body{
 .settingsCard{
   padding-top: 80px;
   padding-bottom: 20px;
+}
+
+.optionsButton {
+  position: absolute;
+  right: 0px;
 }
 
 
