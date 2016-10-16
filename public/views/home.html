@@ -1,8 +1,9 @@
 
 
-<div class="cardContainer">
+<div class="cardContainer container">
+	<div class = "row">
 
-		<md-card class="siteCard col-lg-3 col-lg-offset-1" ng-repeat="website in websites">
+		<md-card class="siteCard col-lg-3 col-xs-12 col-lg-offset-1" ng-repeat="website in websites">
 			<img ng-src="{{website.imagePath}}"  err-src="./media/ring.gif" class="md-card-image screenshot" alt="Screenshot">
 			<div ng-show="!website.editModus" class = "currentInfo">
 				<md-card-title>
@@ -72,7 +73,7 @@
 
 
 
-		<md-card class="siteCard col-lg-3 col-lg-offset-1" >
+		<md-card class="siteCard col-lg-3 col-xs-12 col-lg-offset-1" >
 			<a href="#" ng-click="showNewSite=!showNewSite">
 				<div class = "newSitePicture">
 					
@@ -112,4 +113,6 @@
 			</div>
 		</md-card>
 
+
+	</div>
 </div>
