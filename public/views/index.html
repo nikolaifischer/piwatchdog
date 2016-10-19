@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css"> <!-- custom styles -->
     <link rel="stylesheet" href="/libs/angular-material/angular-material.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 
     <!-- JS -->
     <script src="libs/angular/angular.min.js"></script>
@@ -40,7 +41,6 @@
 <body ng-app="sampleApp" ng-controller="MainController">
     <div class ="container-fluid">
         <div class = "row">
-
             <md-toolbar id="menuBar" class="col-xs-12">
               <div class="md-toolbar-tools">
               <a href="/">
@@ -48,9 +48,23 @@
                   <img id="logo" src = "../media/logo.png">
               </a>
                 <span flex></span>
-                <md-button  href="/settings" class="md-fab md-mini md-warn" aria-label="Settings">
-                  <i class="material-icons" style="margin-top: 7px; color:white;">settings</i>
-                </md-button>
+                <md-button ng-click="goTo('/add')">
+                    <md-icon class = "material-icons" style = "color:white;"> add </md-icon>
+                 </md-button>
+                <md-menu>
+                  <md-button ng-click="$mdOpenMenu($event)" style = "color:white;" class="md-icon-button" aria-label="Menu">
+                    <md-icon class = "material-icons"> more_vert</md-icon>
+                  </md-button>
+                    <md-menu-content width="2">
+                        <md-menu-item >
+                          <md-button ng-click="goTo('/settings')"> <span md-menu-align-target>Settings</span></md-button>
+                        </md-menu-item> 
+                        <md-menu-item >
+                          <md-button > <span md-menu-align-target>About</span></md-button>
+                        </md-menu-item>
+                </md-menu-content>
+             </md-menu>
+
               </div>
             </md-toolbar>
         </div>

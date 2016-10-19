@@ -1,4 +1,4 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope, $interval,  $mdDialog, WebsiteService) {
+angular.module('MainCtrl', []).controller('MainController', function($scope, $interval, $location, $mdDialog, WebsiteService) {
 
     $scope.newSite = {
     	name: "",
@@ -76,6 +76,10 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
 
 
 
+    }
+
+    $scope.goTo = function(path){
+      $location.path(path);
     }
 
 
