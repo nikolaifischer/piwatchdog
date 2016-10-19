@@ -1,6 +1,4 @@
 angular.module('MainCtrl', []).controller('MainController', function($scope, $interval,  $mdDialog, WebsiteService) {
-  
-    $scope.imagePath = 'https://bellgraphicdesigndotorg.files.wordpress.com/2014/11/3browser-mockup.jpg';
 
     $scope.newSite = {
     	name: "",
@@ -106,6 +104,12 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
   };
 
 
+  $scope.addNewSite = function () {
+    $scope.showNewSite=true;
+
+  }
+
+
 // HELPER METHODS
 
  // Maps the ID of the website in the database on the position in the array.
@@ -163,12 +167,12 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
 		for(var i =0; i<websitesInDb.length; i++) {
 			var dbWebsite = websitesInDb[i];
 			var frontEndIndex = findInArrayById(dbWebsite._id);
-			if(frontEndIndex > -1) {
-				console.log(dbWebsite.last_checked);
+			if(frontEndIndex > -1 && $scope.websites[frontEndIndex].editModus==false) {
+	       
 				$scope.websites[frontEndIndex].last_checked= jQuery.timeago(dbWebsite.last_checked);
 				$scope.websites[frontEndIndex].isOnline= dbWebsite.isOnline;
         if(dbWebsite.isOnline) {
-          $scope.websites[frontEndIndex].imagePath = "./media/screenshots/"+dbWebsite._id+".png"+ '?decache=' + Math.random();  
+          $scope.websites[frontEndIndex].imagePath = "./media/screenshots/"+dbWebsite._id+".png?decache="+Math.random();  
         }
         else {
           $scope.websites[frontEndIndex].imagePath = "./media/offline.png"

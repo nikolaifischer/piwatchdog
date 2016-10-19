@@ -1,0 +1,38 @@
+
+<div ng-controller="MainController" class = "container-fluid">
+	<div class = "col-lg-3"> </div>
+	<md-card  class="siteCard newSiteCard col-lg-6 col-xs-12 " >
+			<div class = "newSitePicture">
+				<i class="material-icons">add</i>
+			</div>
+
+	
+		<md-card-title>
+			<md-card-title-text>
+			</md-card-title-text>
+		</md-card-title>
+		<md-card-content>
+			<md-input-container md-no-float class="md-block">
+				<label>NAME</label>
+				<input ng-model="newSite.name" placeholder="My Blog">
+			</md-input-container>
+			<md-input-container class ="urlEdit">
+				<label>URL</label>
+				<input ng-model="newSite.url" type="url" placeholder="http://www.example.com">
+			</md-input-container>
+
+		    <md-input-container class="md-icon-float md-icon-right md-block">
+			      <label>Check Interval</label>
+		      	<input ng-model="newSite.interval" type="number" step="1" placeholder="30">
+			      <span> Minutes </span>
+			</md-input-container>
+
+			<div class=newAddButtonContainer>
+				<md-button href="../" class="md-raised md-primary">Discard</md-button>
+
+				<md-button href="../" ng-click = "saveNewSite()" class="md-raised md-primary">Save</md-button>
+			</div>
+		</md-card-content>
+	</md-card>
+	<div class = "col-lg-3"> </div>
+</div>

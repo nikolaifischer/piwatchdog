@@ -11,6 +11,7 @@ body{
   position: relative;
   vertical-align: top;
   text-align: left;
+
   /*margin-left: 20px;
   margin-right: 20px;*/
 }
@@ -44,6 +45,7 @@ body{
   /*height:70px;*/
 }
 
+
 .newSitePicture{
   width:90%;
   height: 200px;
@@ -67,6 +69,9 @@ body{
   margin-left:10px;
   margin-right:10px;
   margin-top:35px;
+}
+.urlEdit {
+  width:100%;
 }
 
 #email-settings{
@@ -97,6 +102,13 @@ body{
 .optionsButton {
   position: absolute;
   right: 0px;
+}
+
+.plusButton {
+  position:fixed !important;
+  right: 60px;
+  bottom: 40px;
+
 }
 
 

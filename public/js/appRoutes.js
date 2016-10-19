@@ -7,6 +7,11 @@
             templateUrl: 'views/home.html',
             controller: 'MainController'
         })
+          // add new website
+        .when('/add', {
+            templateUrl: 'views/add.html',
+            controller: 'MainController'
+        })
         // Settings page
         .when('/settings', {
             templateUrl: 'views/settings.html',
