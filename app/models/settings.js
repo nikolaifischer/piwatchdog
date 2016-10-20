@@ -6,7 +6,7 @@
 var mongoose = require('mongoose');
 
 module.exports = mongoose.model('settings', {
-    pushbulletAPI : {type : String, default: ''},
+      pushbulletAPI : {type : String, default: ''},
    	email: {type: String, default: ''},		// Receiver of the e-mail
    	smtp_host: {type: String, default: ''},
    	smtp_user: {type: String, default: ''},

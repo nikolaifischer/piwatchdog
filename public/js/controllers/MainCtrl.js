@@ -148,6 +148,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
 	 		nextWebsite.id = websitesInDb[i]._id;
 	 		nextWebsite.isOnline = websitesInDb[i].isOnline;
 	 		nextWebsite.last_checked = jQuery.timeago(websitesInDb[i].last_checked);
+      nextWebsite.notifyChanges = websitesInDb[i].notifyChanges;
 	 		nextWebsite.editModus = false;
 	 		
       if(nextWebsite.isOnline) {

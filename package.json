@@ -4,6 +4,7 @@
   "dependencies": {
     "body-parser": "~1.4.2",
     "express": "~4.5.1",
+    "hiff": "^0.3.0",
     "method-override": "~2.0.2",
     "mongoose": "~3.8.0",
     "nodemailer": "^2.6.4",

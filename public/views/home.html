@@ -64,6 +64,7 @@
 							      <input ng-model="websites[i].interval" type="number" step="1" min="1">
 							      <span> Minutes </span>
 			    				</md-input-container>
+								<md-switch ng-model="websites[i].notifyChanges" > Notify when content changes  </md-switch>
 
 								<div class=newAddButtonContainer>
 									<md-button class="md-raised md-primary" ng-click='saveEdit(websites[i].id)' >Save</md-button>

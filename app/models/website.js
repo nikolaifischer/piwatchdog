@@ -13,5 +13,8 @@ module.exports = mongoose.model('website', {
    	url: {type: String, default: ''},
    	interval: {type: Number, default: 30},
    	last_checked: { type: Date, default: Date.now },
-   	isOnline: {type: Boolean, default: true}
+   	isOnline: {type: Boolean, default: true},
+   	content: {type:String, default:''},
+   	hasChanged: {type: Boolean, default:false},
+   	notifyChanges: {type: Boolean, default: false}
 });

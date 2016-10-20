@@ -7,6 +7,7 @@ var http = require('http');
 var URL = require('url-parse');
 var pushbullet = require('./pushbullet');
 var fs = require('fs');
+var hiff = require('hiff');
 
 var watching = [];
 
@@ -101,71 +102,109 @@ function checkOnlineStatus( id) {
     
     // Get url from DB
 
-    console.log("checking Online Status of "+ id);
-
     website.findById(id, function(err, website) 
     {
 
-        if (err) {
-            console.log("Probably DB Error!")
-            console.log(err);
-        }
+      // Die Settings Abfrage muss leider nach oben, damit man auch checken kann ob Mails und Notifications bei Änderungen gesendet werden
+      // sollen. Ein alreadyNotified braucht man hierbei aber nicht!
+        settings.find({}, function(err, settingsArray){
+            var settings = settingsArray[settingsArray.length-1]; // Get the last (and most recent) settings object.
 
-           var url =  new URL(website.url);
+            if (err) {
+                console.log("Probably DB Error!")
+                console.log(err);
+            }
 
-           var options = {
-              host: url.hostname,
-              port: url.port,
-              path: url.pathname
-            };
+               var url =  new URL(website.url);
+
+               var options = {
+                  host: url.hostname,
+                  port: url.port,
+                  path: url.pathname
+                };
 
 
-            http.get(options, function(res) {
-              console.log("Got response: " + res.statusCode);
-              if(res.statusCode == 200 || res.statusCode == 302) {
-                website.isOnline = true;
-                website.last_checked = Date.now();
-                website.save();
-              }
-            }).on('error', function(e) {
-                // Hier müsste noch gecheckt werden, ob nicht einfach das WLAN aus ist.
-              console.log("Got error: " + e.message);
-              website.isOnline = false;
-              website.last_checked = Date.now();
-              website.save();
 
-              // Send Pushbullet?
+                http.get(options, function(res) {
+                  if(res.statusCode == 200 || res.statusCode == 302) {
+                    res.setEncoding('utf8');
+                      var html = '';
+                       res.on('data', (chunk) => {
+                            html +=chunk;
+                        });
+                       
+                       res.on('end', function () {
 
-              settings.find({}, function(err, settingsArray){
+                        if(website.notifyChanges){
+                            checkForChanges(id,html,settings,website);
+                        }
 
-                var settings = settingsArray[settingsArray.length-1];
+                        website.content = html;   
+                        website.isOnline = true;
+                        website.last_checked = Date.now();
+                        website.save();
+                       });            
+                       
 
-                console.log(settings);
 
-                if (err) {
-                    console.log("DB Error:")
-                    console.log(err);
-                    return;
-                }
+                  }
+                }).on('error', function(e) {
+                    // Hier müsste noch gecheckt werden, ob nicht einfach das WLAN aus ist.
+                  console.log("Got error: " + e.message);
+                  website.isOnline = false;
+                  website.last_checked = Date.now();
+                  website.save();
 
-                if(alreadyNotified.indexOf(id)<0) {
-                    if(settings.sendPushbullet) {
-                        pushbullet.sendPush( website.name+" is offline", website.url +" just went offline. I last checked at "+website.last_checked,settings.pushbulletAPI);
+                  // Send Pushbullet?
+
+                    if(alreadyNotified.indexOf(id)<0) {
+                        if(settings.sendPushbullet) {
+                            pushbullet.sendPush( website.name+" is offline", website.url +" just went offline. I last checked at "+website.last_checked,settings.pushbulletAPI);
+                        }
+
+                        if(settings.sendEmail) {
+                            mailer.sendEmail("Website "+website.name+" is offline", "The website with the url "+website.url+" appears to be offline!", settings);
+                        }
+                        alreadyNotified.push(id);
                     }
 
-                    if(settings.sendEmail) {
-                        mailer.sendEmail("Website "+website.name+" is offline", "The website with the url "+website.url+" appears to be offline!", settings);
-                    }
-                    alreadyNotified.push(id);
-                }
-
-              });
+                  });
 
             });
 
     });
 
    
+
+}
+
+checkForChanges = function (id, newContent,settings,website){
+
+    console.log("Checking for changes");
+        var oldContent = website.content;
+        var result = hiff.compare(oldContent, newContent);
+        if (result.different) {
+          result.changes.map(function(change) {
+            website.hasChanged=true;
+            website.save();
+            if(settings.sendPushbullet){
+                pushbullet.sendPush( website.name+" has changed", website.url +" has changed!: "+ change.message+" I last checked at "+website.last_checked,settings.pushbulletAPI);
+
+            }
+            if(settings.sendEmail) {
+
+                mailer.sendEmail("Website "+website.name+" has changed", "The website with the url "+website.url+" has changed!", settings);
+
+           
+            }
+          });
+          return true;
+        } else {
+          return false;
+        }
+
+   
+
 
 }
 

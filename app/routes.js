@@ -10,6 +10,7 @@ var URL = require('url-parse');
 var fs = require('fs');
 var mongoose = require('mongoose');
 
+
 // Models
 var website = require('./models/website');
 var settings = require('./models/settings');
@@ -21,6 +22,17 @@ var watchengine = require ('./watchengine');
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost/piwatchdog');
+
+// If there is no settings document in the db, create one:
+
+settings.find({}, function(err,res){
+  if (err)
+    console.log(err);
+  if(res.length<1){
+    var mySettings = new settings();
+    mySettings.save();
+  }
+});
 
 // Restarts the watchers after a server restart
 watchengine.startWatchingAgain();
@@ -50,6 +62,7 @@ module.exports = function(app) {
           newSite.name = name;
           newSite.url = url;
           newSite.interval = interval;
+          newSite.notifyChanges=req.body.notifyChanges;
 
           newSite.save(function(err){
             if (err) {
@@ -89,6 +102,7 @@ module.exports = function(app) {
         website.name = req.body.name;
         website.interval = req.body.interval;
         website.url = req.body.url;
+        website.notifyChanges = req.body.notifyChanges;
         
         website.save(function(err,website){
              watchengine.registerWatcher(website.id, website.interval);
