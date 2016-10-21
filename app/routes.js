@@ -42,7 +42,7 @@ module.exports = function(app) {
 
     app.get('/api/websites', function(req, res) {
         website.find({}).maxTime(1000).exec(function(err, websites) {
-            
+
             if (err)
             {
                 res.send(err);
