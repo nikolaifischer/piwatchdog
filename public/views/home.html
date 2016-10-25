@@ -6,7 +6,7 @@
 			<div class = "col-lg-1">  </div>
 			<div ng-repeat = "i in [$index+0, $index+1, $index+2]">
 					<md-card class="siteCard col-lg-3 col-xs-12" ng-if="websites[i]!=null">
-						<img ng-src="{{websites[i].imagePath}}"  err-src="./media/ring.gif" class="md-card-image screenshot" alt="Screenshot">
+						<img ng-src="{{websites[i].imagePath}}"  err-src="./media/loading.png" class="md-card-image screenshot" alt="Screenshot">
 						<div ng-show="!websites[i].editModus" class = "currentInfo">
 							<md-card-title>
 								<md-card-title-text>

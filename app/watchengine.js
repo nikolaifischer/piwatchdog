@@ -9,7 +9,7 @@ var pushbullet = require('./pushbullet');
 var fs = require('fs');
 var hiff = require('hiff');
 
-var watching = [];
+var watching = {};
 
 // This array contains the ids of the websites for which the user was already informed that its offline
 var alreadyNotified = [];
@@ -22,8 +22,9 @@ exports.registerWatcher = function (id, interval) {
         // add ID to "watching" array
 
     if(exports.inWatching(id)==false){    
-        Repeat(function(){return checkOnlineStatus(id); }).every(interval, 'minutes').until(function(){return exports.inWatching(id)==false}).start.now();
-        watching.push(id);
+        watching[id] = setInterval(checkOnlineStatus, 60000*interval, id);
+        //Repeat(function(){return checkOnlineStatus(id); }).every(interval, 'minutes').until(function(){return exports.inWatching(id)==false}).start.now();
+        
     }
 
 }
@@ -32,16 +33,9 @@ exports.registerWatcher = function (id, interval) {
  // removes site from watching Array
 exports.deregisterWatcher =function (id) {
 
-    var index ;
-
-    for (var i = 0; i<watching.length; i++) {
-        if (id == watching[i]) {
-            index = i;
-        }
-    }
-
+    clearInterval(watching[id]);
     // Delete the id from the watching array.
-    watching.splice(index,1);
+    delete watching[id];
 
     var filePath = "./public/media/screenshots/"+id+".png" ; 
     // Check if there is a file and then delete it
@@ -86,11 +80,9 @@ exports.startWatchingAgain = function() {
  // returns true if website is in watching array
 exports.inWatching = function (id) {
    
-    for (var i = 0; i<watching.length; i++) {
-        if (id == watching[i]) {
-            return true;
-        }
-    }
+    if(id in watching)
+        return true;
+
     return false;
 }
 
@@ -98,8 +90,10 @@ exports.inWatching = function (id) {
 
 
 
-function checkOnlineStatus( id) {
-    
+function checkOnlineStatus(id) {
+
+    console.log("Checking id "+id);
+  
     // Get url from DB
 
     website.findById(id, function(err, website) 

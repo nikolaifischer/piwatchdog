@@ -1,10 +1,5 @@
 angular.module('MainCtrl', []).controller('MainController', function($scope, $interval, $location, $mdDialog, WebsiteService) {
 
-    $scope.newSite = {
-    	name: "",
-    	url:""
-    };
-
     $scope.showNewSite=false;
     $scope.isOpen=false;
     $scope.editModus=false;
@@ -40,7 +35,6 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
 
 			// Update Object as it is in the frontend in the DB
 			WebsiteService.delete($scope.websites[index].id, function(response){
-				console.log("Service has deleted");
 				console.log(response);
 
 
@@ -155,7 +149,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
 	 		  nextWebsite.imagePath = "./media/screenshots/"+websitesInDb[i]._id+".png";
       }
       else {
-        nextWebsite.imagePath="./media/screenshots/offline.png"
+        nextWebsite.imagePath="./media/offline.png"
       }
 
 	 		websitesInFrontend.push(nextWebsite);
@@ -191,7 +185,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
 
 	}
 
-// Updates the Data displayed in the frontend. Is called every 30s by the $interval service.
+// Updates the Data displayed in the frontend. Is called every 10s by the $interval service.
 	getData = function () {
 	    WebsiteService.get(function(sites){
 	   		
