@@ -54,7 +54,6 @@ module.exports = function(app) {
 
 
     app.post('/api/websites', function(req, res) {
-          console.log(req.body);
           var name = req.body.name;
           var url = req.body.url;
           var interval = parseInt(req.body.interval);
@@ -92,24 +91,31 @@ module.exports = function(app) {
 
 
     app.put('/api/websites/:id',function(req, res) {
+
+
    
          console.log("Updating in DB the website with the id " +req.params.id);
       website.findById(req.params.id, function(err, website) {
+
+
         if (err)
           res.send(err);
 
-        watchengine.deregisterWatcher(website.id);
-        website.name = req.body.name;
-        website.interval = req.body.interval;
-        website.url = req.body.url;
-        website.notifyChanges = req.body.notifyChanges;
-        
-        website.save(function(err,website){
-             watchengine.registerWatcher(website.id, website.interval);
-             screenshot.takeScreenshot(website.url, website.id);
+        if(req.body.length > 1) {
 
-        });
-       
+          watchengine.deregisterWatcher(website.id);
+          website.name = req.body.name;
+          website.interval = req.body.interval;
+          website.url = req.body.url;
+          website.notifyChanges = req.body.notifyChanges;
+          
+          website.save(function(err,website){
+               watchengine.registerWatcher(website.id, website.interval);
+               screenshot.takeScreenshot(website.url, website.id);
+
+          });
+        }
+         
 
        res.json(website);
       });

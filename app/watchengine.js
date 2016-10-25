@@ -91,8 +91,6 @@ exports.inWatching = function (id) {
 
 
 function checkOnlineStatus(id) {
-
-    console.log("Checking id "+id);
   
     // Get url from DB
 
@@ -178,20 +176,19 @@ checkForChanges = function (id, newContent,settings,website){
         var oldContent = website.content;
         var result = hiff.compare(oldContent, newContent);
         if (result.different) {
-          result.changes.map(function(change) {
             website.hasChanged=true;
             website.save();
             if(settings.sendPushbullet){
-                pushbullet.sendPush( website.name+" has changed", website.url +" has changed!: "+ change.message+" I last checked at "+website.last_checked,settings.pushbulletAPI);
+                pushbullet.sendPush( website.name+" has changed", website.url +" has changed!: "+ result.changes+" I last checked at "+website.last_checked,settings.pushbulletAPI);
 
             }
             if(settings.sendEmail) {
 
-                mailer.sendEmail("Website "+website.name+" has changed", "The website with the url "+website.url+" has changed!", settings);
+                mailer.sendEmail("Website "+website.name+" has changed", "The website with the url "+website.url+" has changed: "+result.changes, settings);
 
            
             }
-          });
+          
           return true;
         } else {
           return false;

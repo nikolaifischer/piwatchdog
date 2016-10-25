@@ -22,6 +22,7 @@ angular.module('SettingsCtrl', []).controller('SettingsController', function($sc
 		
 		else {
 			$scope.settings = response[0];
+			console.log($scope.settings);
 		}
 	});
 
