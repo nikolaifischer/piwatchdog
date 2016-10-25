@@ -101,7 +101,8 @@ module.exports = function(app) {
         if (err)
           res.send(err);
 
-        if(req.body.length > 1) {
+
+        
 
           watchengine.deregisterWatcher(website.id);
           website.name = req.body.name;
@@ -109,12 +110,12 @@ module.exports = function(app) {
           website.url = req.body.url;
           website.notifyChanges = req.body.notifyChanges;
           
-          website.save(function(err,website){
+          website.save(function(err,websiteResp){
                watchengine.registerWatcher(website.id, website.interval);
                screenshot.takeScreenshot(website.url, website.id);
 
           });
-        }
+        
          
 
        res.json(website);
