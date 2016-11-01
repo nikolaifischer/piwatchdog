@@ -64,7 +64,14 @@
 							      <input ng-model="websites[i].interval" type="number" step="1" min="1">
 							      <span> Minutes </span>
 			    				</md-input-container>
-								<md-switch ng-model="websites[i].notifyChanges" > Notify when content changes  </md-switch>
+			    				<md-input-container>
+									<md-switch ng-model="websites[i].notifyChanges" > Notify me when content changes  </md-switch>
+								</md-input-container>
+								<md-input-container md-no-float class="md-block" ng-show = "websites[i].notifyChanges">
+									<label>Ignore Elements</label>
+									<input ng-model="websites[i].ignore" placeholder=".footer, #date">
+								</md-input-container>
+
 
 								<div class=newAddButtonContainer>
 									<md-button class="md-raised md-primary" ng-click='saveEdit(websites[i].id)' >Save</md-button>

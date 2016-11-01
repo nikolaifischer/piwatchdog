@@ -33,10 +33,6 @@ exports.registerWatcher = function (id, interval) {
  // removes site from watching Array
 exports.deregisterWatcher =function (id) {
 
-    clearInterval(watching[id]);
-    // Delete the id from the watching array.
-    delete watching[id];
-
     var filePath = "./public/media/screenshots/"+id+".png" ; 
     // Check if there is a file and then delete it
     fs.stat(filePath,function(err, stat){
@@ -45,6 +41,9 @@ exports.deregisterWatcher =function (id) {
         }
         else if(stat.isFile()){
             fs.unlink(filePath);
+                clearInterval(watching[id]);
+                // Delete the id from the watching array.
+                delete watching[id];
         }
     });
    
@@ -174,7 +173,12 @@ checkForChanges = function (id, newContent,settings,website){
 
     console.log("Checking for changes");
         var oldContent = website.content;
-        var result = hiff.compare(oldContent, newContent);
+        var options = {};
+        if(website.ignore != undefined && website.ignore.length>0) {
+            options = {ignore:website.ignore};
+        }
+
+        var result = hiff.compare(oldContent, newContent, options);
         if (result.different) {
             website.hasChanged=true;
             website.save();

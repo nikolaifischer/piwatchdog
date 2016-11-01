@@ -27,11 +27,16 @@
 			      <span> Minutes </span>
 			</md-input-container>
 
-			<md-switch ng-model="websites[i].notifyChanges" > Notify when content changes  </md-switch>
+			<md-input-container>
+				<md-switch ng-model="newSite.notifyChanges" > Notify me when content changes  </md-switch>
+			</md-input-container>
+			<md-input-container md-no-float class="md-block" ng-show = "newSite.notifyChanges">
+				<label>Ignore Elements</label>
+				<input ng-model="newSite.ignore" placeholder=".footer, #date">
+			</md-input-container>
 
 			<div class=newAddButtonContainer>
 				<md-button href="../" class="md-raised md-primary">Discard</md-button>
-
 				<md-button href="../" ng-click = "saveNewSite()" class="md-raised md-primary">Save</md-button>
 			</div>
 		</md-card-content>

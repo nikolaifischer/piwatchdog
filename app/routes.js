@@ -62,6 +62,12 @@ module.exports = function(app) {
           newSite.url = url;
           newSite.interval = interval;
           newSite.notifyChanges=req.body.notifyChanges;
+          var ignoreString = req.body.ignore+"";
+          if(ignoreString.length>0) {
+            ignoreString = ignoreString.replace(/\s/g,'');
+            newSite.ignore = ignoreString.split(",");
+          }
+            
 
           newSite.save(function(err){
             if (err) {
@@ -109,6 +115,14 @@ module.exports = function(app) {
           website.interval = req.body.interval;
           website.url = req.body.url;
           website.notifyChanges = req.body.notifyChanges;
+          var ignoreString = req.body.ignore+"";
+          if(ignoreString.length>0) {
+            ignoreString = ignoreString.replace(/\s/g,'');
+            website.ignore = ignoreString.split(",");
+          }
+           
+          else
+            website.ignore = [];
           
           website.save(function(err,websiteResp){
                watchengine.registerWatcher(website.id, website.interval);

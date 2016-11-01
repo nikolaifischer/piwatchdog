@@ -16,5 +16,6 @@ module.exports = mongoose.model('website', {
    	isOnline: {type: Boolean, default: true},
    	content: {type:String, default:''},
    	hasChanged: {type: Boolean, default:false},
-   	notifyChanges: {type: Boolean, default: false}
-});
+   	notifyChanges: {type: Boolean, default: false},
+   	ignore: {type:  [String], default: []}
+   });

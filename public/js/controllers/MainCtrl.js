@@ -19,14 +19,12 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
 
     		// Update Object as it is in the frontend in the DB
     		WebsiteService.update($scope.websites[index], function(response){
-    			console.log("Service has updated");
-    			console.log(response);
     			$scope.websites[index].editModus=false;
    		 	});
 
     	}
     }
-
+ 
 
 
     $scope.delete = function(id){
@@ -143,6 +141,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
 	 		nextWebsite.isOnline = websitesInDb[i].isOnline;
 	 		nextWebsite.last_checked = jQuery.timeago(websitesInDb[i].last_checked);
       nextWebsite.notifyChanges = websitesInDb[i].notifyChanges;
+      nextWebsite.ignore = websitesInDb[i].ignore;
 	 		nextWebsite.editModus = false;
 	 		
       if(nextWebsite.isOnline) {
@@ -167,9 +166,9 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
 			var dbWebsite = websitesInDb[i];
 			var frontEndIndex = findInArrayById(dbWebsite._id);
 			if(frontEndIndex > -1 && $scope.websites[frontEndIndex].editModus==false) {
-	       
 				$scope.websites[frontEndIndex].last_checked= jQuery.timeago(dbWebsite.last_checked);
 				$scope.websites[frontEndIndex].isOnline= dbWebsite.isOnline;
+        $scope.websites[frontEndIndex].isOnline= dbWebsite.ignore;
         if(dbWebsite.isOnline) {
           $scope.websites[frontEndIndex].imagePath = "./media/screenshots/"+dbWebsite._id+".png?decache="+Math.random();  
         }
