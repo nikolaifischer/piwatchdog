@@ -183,12 +183,17 @@ checkForChanges = function (id, newContent,settings,website){
             website.hasChanged=true;
             website.save();
             if(settings.sendPushbullet){
-                pushbullet.sendPush( website.name+" has changed", website.url +" has changed!: "+ result.changes+" I last checked at "+website.last_checked,settings.pushbulletAPI);
+                pushbullet.sendPush( website.name+" has changed", website.url +" has changed!: "+ result.changes[0].message+" and "+result.changes.length+" other changes. I last checked at "+website.last_checked,settings.pushbulletAPI);
 
             }
             if(settings.sendEmail) {
 
-                mailer.sendEmail("Website "+website.name+" has changed", "The website with the url "+website.url+" has changed: "+result.changes, settings);
+                var allChanges ="";
+                result.changes.map(function(change) {
+                    allChanges = allChanges+ change.message;
+                 });
+
+                mailer.sendEmail("Website "+website.name+" has changed", "The website with the url "+website.url+" has changed: "+allChanges, settings);
 
            
             }
