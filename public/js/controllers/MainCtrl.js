@@ -16,7 +16,6 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
 
     	var index = findInArrayById(id);
     	if(index >-1) {
-
     		// Update Object as it is in the frontend in the DB
     		WebsiteService.update($scope.websites[index], function(response){
     			$scope.websites[index].editModus=false;
@@ -52,7 +51,6 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
 
     		$scope.showNewSite=false;
 
-
 			WebsiteService.get(function(sites){
    					$scope.websites = mapToFrontend(sites);
    					var date =  Date.now();
@@ -62,6 +60,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
 				    	url:"",
 				    	last_checked: date
 				    };
+                $location.path('../')
    				});
 
     	});

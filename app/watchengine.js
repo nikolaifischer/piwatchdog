@@ -27,16 +27,19 @@ exports.registerWatcher = function (id, interval) {
         
     }
 
+    checkOnlineStatus(id);
+
 }
 
 
  // removes site from watching Array
-exports.deregisterWatcher =function (id) {
+exports.deregisterWatcher =function (id,cb) {
 
     var filePath = "./public/media/screenshots/"+id+".png" ; 
     // Check if there is a file and then delete it
     fs.stat(filePath,function(err, stat){
         if(err) {
+            cb();
             return;
         }
         else if(stat.isFile()){
@@ -44,6 +47,7 @@ exports.deregisterWatcher =function (id) {
                 clearInterval(watching[id]);
                 // Delete the id from the watching array.
                 delete watching[id];
+                cb();
         }
     });
    
@@ -173,9 +177,10 @@ checkForChanges = function (id, newContent,settings,website){
 
     console.log("Checking for changes");
         var oldContent = website.content;
-        var options = {};
+
+        var options = {ignoreComments:true};
         if(website.ignore != undefined && website.ignore.length>0) {
-            options = {ignore:website.ignore};
+            options = {ignoreComments:true,ignore:website.ignore};
         }
 
         var result = hiff.compare(oldContent, newContent, options);

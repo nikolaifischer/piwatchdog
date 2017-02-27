@@ -1,86 +1,97 @@
+<div class="cardContainer container-fluid">
+    <div ng-repeat="website in websites">
+        <div class=row ng-if="$index % 3 == 0">
+            <div class="col-lg-1"></div>
+            <div ng-repeat="i in [$index+0, $index+1, $index+2]">
+                <md-card class="siteCard col-lg-3 col-xs-12" ng-if="websites[i]!=null">
+                    <img ng-src="{{websites[i].imagePath}}" err-src="./media/loading.png"
+                         class="md-card-image screenshot" alt="Screenshot">
+                    <div ng-show="!websites[i].editModus" class="currentInfo">
+                        <md-card-title>
+                            <md-card-title-text style="overflow: hidden">
+                                <span class="md-headline">{{websites[i].name}}</span>
+                                <span class="md-subheadline" style="overflow: hidden"> <a target="_blank"
+                                                                                          href="{{websites[i].url}}"> {{websites[i].url}} </a></span>
+                            </md-card-title-text>
+                        </md-card-title>
+                        <md-card-content>
+                            <div id="online" ng-show="websites[i].isOnline">
+                                <i class="material-icons" style="color: green; font-size: 30px;">done</i>
+                                <br/>
+                                <span style="font-size: 12px;">  ONLINE </span>
+                                <br/>
+                                <br/>
+                                <div style="font-size: 10px; margin-bottom: 20px;"> LAST CHECKED
+                                    <time class="timeago">{{websites[i].last_checked}}</time>
+                                </div>
+                            </div>
+
+                            <div id="offline" ng-show="!websites[i].isOnline">
+                                <i class="material-icons" style="color: #F4511E; font-size: 30px;">cancel</i>
+                                <br/>
+                                <span style="font-size: 12px;">  OFFLINE </span>
+                                <br/>
+                                <br/>
+                                <div style="font-size: 10px; margin-bottom: 20px;"> LAST CHECKED
+                                    <time class="timeago">{{websites[i].last_checked}}</time>
+                                </div>
+                            </div>
+
+                            <md-fab-speed-dial md-direction="left" class="md-scale speedDial">
+                                <md-fab-trigger class="optionsButton">
+                                    <md-button aria-label="menu" class="md-fab md-warn">
+                                        <md-icon class="material-icons">menu</md-icon>
+                                    </md-button>
+                                </md-fab-trigger>
+                                <md-fab-actions>
+                                    <md-button ng-click="websites[i].editModus = !websites[i].editModus"
+                                               aria-label="Edit" class="md-fab md-raised md-mini">
+                                        <md-icon class="material-icons">edit</md-icon>
+                                    </md-button>
+                                    <md-button ng-click="showConfirm($event,websites[i].id)" aria-label="Delete"
+                                               class="md-fab md-raised md-mini">
+                                        <md-icon class="material-icons">delete</md-icon>
+                                    </md-button>
+                                </md-fab-actions>
+                            </md-fab-speed-dial>
+                        </md-card-content>
+                    </div>
+
+                    <div class="editDialog" ng-show="websites[i].editModus">
+                        <md-input-container md-no-float class="md-block">
+                            <label>NAME</label>
+                            <input ng-model="websites[i].name" placeholder="My Blog">
+                        </md-input-container>
+                        <md-input-container class="urlEdit">
+                            <label>URL</label>
+                            <input ng-model="websites[i].url" type="url" placeholder="http://www.test.com">
+                        </md-input-container>
+
+                        <md-input-container class="md-icon-float md-icon-right md-block">
+                            <label>Check Interval</label>
+                            <input ng-model="websites[i].interval" type="number" step="1" min="1">
+                            <span> Minutes </span>
+                        </md-input-container>
+                        <md-input-container>
+                            <md-switch ng-model="websites[i].notifyChanges"> Notify me when content changes</md-switch>
+                        </md-input-container>
+                        <md-input-container md-no-float class="md-block" ng-show="websites[i].notifyChanges">
+                            <label>Ignore Elements</label>
+                            <input ng-model="websites[i].ignore" placeholder=".footer, #date">
+                        </md-input-container>
 
 
-<div class="cardContainer container-fluid">	
-	<div ng-repeat ="website in websites"> 
-		<div class = row ng-if="$index % 3 == 0">
-			<div class = "col-lg-1">  </div>
-			<div ng-repeat = "i in [$index+0, $index+1, $index+2]">
-					<md-card class="siteCard col-lg-3 col-xs-12" ng-if="websites[i]!=null">
-						<img ng-src="{{websites[i].imagePath}}"  err-src="./media/loading.png" class="md-card-image screenshot" alt="Screenshot">
-						<div ng-show="!websites[i].editModus" class = "currentInfo">
-							<md-card-title>
-								<md-card-title-text>
-									<span class="md-headline">{{websites[i].name}}</span>
-									<span class="md-subheadline"> <a href="{{websites[i].url}}"> {{websites[i].url}} </a></span>
-							</md-card-title-text>
-							</md-card-title>
-							<md-card-content>
-							<div id = "online" ng-show="websites[i].isOnline">
-								<i class="material-icons" style="color: green; font-size: 30px;">done</i>
-								<br/>
-								<span style = "font-size: 12px;">  ONLINE </span>
-								<br/>
-								<br/>
-								<div style="font-size: 10px; margin-bottom: 20px;"> LAST CHECKED <time class="timeago">{{websites[i].last_checked}}</time></div>
-							</div>
+                        <div class=newAddButtonContainer>
+                            <md-button class="md-raised md-secondary" ng-click='websites[i].editModus = false'>Discard
+                            </md-button>
+                            <md-button class="md-raised md-primary" ng-click='saveEdit(websites[i].id)'>Save</md-button>
+                        </div>
+                    </div>
+                    </md-card-content>
 
-							<div id = "online" ng-show="!websites[i].isOnline">
-								<i class="material-icons" style="color: #F4511E; font-size: 30px;">cancel</i>
-								<br/>
-								<span style = "font-size: 12px;">  OFFLINE </span>
-								<br/>
-								<br/>
-								<div style="font-size: 10px; margin-bottom: 20px;"> LAST CHECKED <time class="timeago">{{websites[i].last_checked}}</time></div>
-							</div>
-								<md-fab-speed-dial md-direction="left" class="md-scale speedDial" >
-									<md-fab-trigger class="optionsButton">
-										<md-button aria-label="menu" class="md-fab md-warn">
-											<md-icon class="material-icons">menu</md-icon>
-										</md-button>
-									</md-fab-trigger>
-									<md-fab-actions>
-										<md-button  ng-click="websites[i].editModus = !websites[i].editModus" aria-label="Edit" class="md-fab md-raised md-mini">
-											<md-icon class="material-icons">edit</md-icon>
-										</md-button>
-										<md-button ng-click="showConfirm($event,websites[i].id)" aria-label="Delete" class="md-fab md-raised md-mini">
-											<md-icon class="material-icons">delete</md-icon>
-										</md-button>
-									</md-fab-actions>
-								</md-fab-speed-dial>
-						</div>
+                </md-card>
+            </div>
+        </div>
 
-							<div class ="editDialog" ng-show="websites[i].editModus"> 
-								<md-input-container md-no-float class="md-block">
-									<label>NAME</label>
-									<input ng-model="websites[i].name" placeholder="My Blog">
-								</md-input-container>
-								<md-input-container class ="urlEdit">
-									<label>URL</label>
-									<input ng-model="websites[i].url" type="url" placeholder="http://www.test.com" >
-								</md-input-container>
-
-							    <md-input-container class="md-icon-float md-icon-right md-block">
-							      <label>Check Interval</label>
-							      <input ng-model="websites[i].interval" type="number" step="1" min="1">
-							      <span> Minutes </span>
-			    				</md-input-container>
-			    				<md-input-container>
-									<md-switch ng-model="websites[i].notifyChanges" > Notify me when content changes  </md-switch>
-								</md-input-container>
-								<md-input-container md-no-float class="md-block" ng-show = "websites[i].notifyChanges">
-									<label>Ignore Elements</label>
-									<input ng-model="websites[i].ignore" placeholder=".footer, #date">
-								</md-input-container>
-
-
-								<div class=newAddButtonContainer>
-									<md-button class="md-raised md-primary" ng-click='saveEdit(websites[i].id)' >Save</md-button>
-								</div>
-							</div>
-						</md-card-content>
-					
-					</md-card>
-			</div>
-		</div>
-
+    </div>
 </div>

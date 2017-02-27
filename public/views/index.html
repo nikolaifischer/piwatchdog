@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 
     <base href="/">
 
-    <link href="/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
 
     <title>PI WATCHDOG</title>
 
@@ -28,7 +28,7 @@
     <script src="/libs/angular-material/angular-material.js"></script>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+          rel="stylesheet">
 
     <!-- ANGULAR CUSTOM -->
     <script src="js/controllers/MainCtrl.js"></script>
@@ -41,42 +41,44 @@
 
 </head>
 <body ng-app="sampleApp" ng-controller="MainController">
-    <div class ="container-fluid">
-        <div class = "row">
-            <md-toolbar id="menuBar" class="col-xs-12">
-              <div class="md-toolbar-tools">
-              <a href="/">
-                  <img id="headerIcon" src = "http://www.finallybinary.com/content/images/PiWatchdog/icon_small.png">
-                  <img id="logo" src = "../media/logo.png">
-              </a>
+<div class="container-fluid">
+    <div class="row">
+        <md-toolbar id="menuBar" class="col-xs-12">
+            <div class="md-toolbar-tools">
+                <a href="/">
+                    <img id="headerIcon" src="http://www.finallybinary.com/content/images/PiWatchdog/icon_small.png">
+                    <img id="logo" src="../media/logo.png">
+                </a>
                 <span flex></span>
                 <md-button ng-click="goTo('/add')">
-                    <md-icon class = "material-icons" style = "color:white;"> add </md-icon>
-                 </md-button>
+                    <md-icon class="material-icons" style="color:white;"> add</md-icon>
+                </md-button>
                 <md-menu>
-                  <md-button ng-click="$mdOpenMenu($event)" style = "color:white;" class="md-icon-button" aria-label="Menu">
-                    <md-icon class = "material-icons"> more_vert</md-icon>
-                  </md-button>
+                    <md-button ng-click="$mdOpenMenu($event)" style="color:white;" class="md-icon-button"
+                               aria-label="Menu">
+                        <md-icon class="material-icons"> more_vert</md-icon>
+                    </md-button>
                     <md-menu-content width="2">
-                        <md-menu-item >
-                          <md-button ng-click="goTo('/settings')"> <span md-menu-align-target>Settings</span></md-button>
-                        </md-menu-item> 
-                        <md-menu-item >
-                          <md-button > <span md-menu-align-target>About</span></md-button>
+                        <md-menu-item>
+                            <md-button ng-click="goTo('/settings')"><span md-menu-align-target>Settings</span>
+                            </md-button>
                         </md-menu-item>
-                </md-menu-content>
-             </md-menu>
+                        <md-menu-item>
+                            <md-button><span md-menu-align-target>About</span></md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
 
-              </div>
-            </md-toolbar>
-        </div>
+            </div>
+        </md-toolbar>
     </div>
 
-    <div style="height:20px;"> </div>
 
-        <!-- ANGULAR DYNAMIC CONTENT -->
-        <div ng-view></div>
+    <div style="height:20px;"></div>
 
-    
+    <!-- ANGULAR DYNAMIC CONTENT -->
+    <div ng-view></div>
+
+</div>
 </body>
 </html>
