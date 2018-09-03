@@ -23,8 +23,6 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $in
 
     	}
     }
- 
-
 
     $scope.delete = function(id){
 		var index = findInArrayById(id);

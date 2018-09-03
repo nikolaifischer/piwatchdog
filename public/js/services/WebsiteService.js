@@ -10,12 +10,13 @@ angular.module('WebsiteServ', []).service('WebsiteService', ['$http', function($
             }, function(response) {
                 //Second function handles error
                console.log("Error getting data from the DB");
+               console.log(response);
             });
                 return;
         },
 
 
-                // these will work when more API routes are defined on the Node side of things
+        // these will work when more API routes are defined on the Node side of things
         // call to POST and create a new website
         create : function(websiteData, cb) {
              $http.post('/api/websites', websiteData).then(function(response){

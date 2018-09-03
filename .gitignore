@@ -58,3 +58,5 @@ libs
 screenshots
 public/media/ring_old.gif
 \.idea/
+
+package-lock\.json

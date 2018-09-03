@@ -10,7 +10,6 @@ var URL = require('url-parse');
 var fs = require('fs');
 var mongoose = require('mongoose');
 
-
 // Models
 var website = require('./models/website');
 var settings = require('./models/settings');
@@ -21,7 +20,14 @@ var screenshot = require('./screenshot');
 var watchengine = require('./watchengine');
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost/piwatchdog');
+var options = {};
+options.connectTimeoutMS = 4000;
+
+mongoose.connect('mongodb://127.0.0.1:27017/piwatchdog', function(err){
+    if(err)
+        throw err;
+});
+
 
 // If there is no settings document in the db, create one:
 
@@ -41,8 +47,7 @@ watchengine.startWatchingAgain();
 module.exports = function (app) {
 
     app.get('/api/websites', function (req, res) {
-        website.find({}).maxTime(1000).exec(function (err, websites) {
-
+        website.find({},function (err, websites) {
             if (err) {
                 res.send(err);
                 console.log(err);
@@ -71,8 +76,8 @@ module.exports = function (app) {
         newSite.save(function (err) {
             if (err) {
                 res.send(err);
+                console.log("Error while saving new website");
             }
-
             res.json({message: 'Site has been added!', data: newSite});
 
             watchengine.registerWatcher(newSite.id, newSite.interval);
@@ -93,7 +98,6 @@ module.exports = function (app) {
             });
 
         });
-
 
     });
 
