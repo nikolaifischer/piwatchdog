@@ -1,0 +1,72 @@
+
+Node JS v6 installieren: 
+
+
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+
+Node Build Tools installieren:
+
+sudo apt-get install -y build-essential
+
+
+
+MongoDB
+
+sudo apt-get install mongodb-server
+
+
+DB Folder anlegen
+
+sudo mkdir --parents /data/db/
+
+
+Start Service
+sudo service mongodb start
+
+
+
+Navigate to the folder you want to install it in:
+
+cd /var/www
+
+
+Download PiWatchdog
+
+sudo wget https://github.com/nikolaifischer/piwatchdog/archive/master.zip
+sudo unzip master.zip
+sudo mv piwatchdog-master/ piwatchdog/
+
+Permissons (or manage as you see fit)
+
+chown -R pi:pi piwatchdog
+chmod -R 700 piwatchdog
+
+Dependencies
+
+npm install
+sudo npm install -g bower
+bower install
+
+
+npm install -g forever
+forever start server.js
+
+-------------------
+
+
+
+--------------------
+PhantomJS: Momentan wird eine Version hergenommen, die speziell für den Rasp kompiliert wurde. Der Pfad wird fest im Options Objekt mitgegeben.
+	   Auf anderen Rechnern funktioniert der Install mit npm
+
+Funktionierende bin: https://github.com/piksel/phantomjs-raspberrypi/blob/master/bin/phantomjs
+ => mit wget im install script laden
+
+
+
+
+
+
+
