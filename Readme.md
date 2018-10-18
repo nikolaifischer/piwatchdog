@@ -14,7 +14,8 @@ Monitor your websites with Pi Watchdog: Receive a push notification or E-Mail wh
 The preferred way to run Pi Watchdog on a Raspberry Pi is to use Docker. This will help you to install all necessary requirements.
 ## Get Docker
     curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
-## Download and start Docker Image
+## Download and start Docker Container
+    docker run -d -p 8080:8080 nikolaifischer91/piwatchdog:1.0
 
 
 # Install on Windows/Mac
