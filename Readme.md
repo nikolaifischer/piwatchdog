@@ -16,6 +16,9 @@ The preferred way to run Pi Watchdog on a Raspberry Pi is to use Docker. This wi
     curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
 ## Download and start Docker Container
     docker run -d -p 8080:8080 nikolaifischer91/piwatchdog:1.0
+If you want to start Pi Watchdog on a port other than 8080, you can do so like this:
+
+    docker run -d -p SOMEPORT:8080 nikolaifischer91/piwatchdog:1.0
 
 
 # Install on Windows/Mac
